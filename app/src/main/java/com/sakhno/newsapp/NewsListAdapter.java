@@ -1,6 +1,5 @@
 package com.sakhno.newsapp;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.sakhno.newsapp.databinding.NewsItemBinding;
 import com.sakhno.newsapp.db.DatabaseHelper;
 import com.sakhno.newsapp.list.OnRecyclerViewItemClickListener;
+import com.sakhno.newsapp.list.OnRemoveButtonClickListener;
 
 
 import java.util.Collections;
@@ -22,7 +22,8 @@ import java.util.List;
 public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsViewHolder> {
     private List<NewsItem> mNewsList = Collections.emptyList();
     private DatabaseHelper databaseHelper;
-    private OnRecyclerViewItemClickListener clickListener;
+    private OnRecyclerViewItemClickListener itemClickListener;
+    private OnRemoveButtonClickListener removeButtonClickListener;
 
 
     class NewsViewHolder extends RecyclerView.ViewHolder {
@@ -69,42 +70,21 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         holder.newsItemBinding.removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteArticleById(Integer.parseInt(v.getContentDescription().toString()));
+                if (removeButtonClickListener != null) {
+                    removeButtonClickListener.onRemoveBtnClick(v);
+                }
             }
         });
 
         holder.newsItemBinding.newsImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (clickListener != null) {
-                    clickListener.onClick(holder.getNewsItem());
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClick(holder.getNewsItem());
                 }
             }
         });
-
-
     }
-
-    private void deleteArticleById(int id) {
-        System.out.println("Delete : " + id);
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-
-        String selection = "id = ?";
-        String[] selectionArgs = {String.valueOf(id)};
-
-        db.delete("News", selection, selectionArgs);
-
-        for (NewsItem item : mNewsList) {
-            if (item.getId() == id) {
-                mNewsList.remove(item);
-                break;
-            }
-        }
-
-        notifyDataSetChanged();
-    }
-
-
 
     @Override
     public int getItemCount() {
@@ -117,11 +97,19 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
         Log.e(NewsListAdapter.class.getCanonicalName(), this.mNewsList.toString());
     }
 
+    public List<NewsItem> getNewsList() {
+        return mNewsList;
+    }
+
     public void setDatabaseHelper(DatabaseHelper databaseHelper) {
         this.databaseHelper = databaseHelper;
     }
 
-    public void setClickListener(OnRecyclerViewItemClickListener mClickListener) {
-        this.clickListener = mClickListener;
+    public void setItemClickListener(OnRecyclerViewItemClickListener mClickListener) {
+        this.itemClickListener = mClickListener;
+    }
+
+    public void setRemoveButtonClickListener(OnRemoveButtonClickListener removeButtonClickListener) {
+        this.removeButtonClickListener = removeButtonClickListener;
     }
 }

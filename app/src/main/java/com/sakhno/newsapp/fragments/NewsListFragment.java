@@ -1,6 +1,8 @@
 package com.sakhno.newsapp.fragments;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -21,12 +23,13 @@ import com.sakhno.newsapp.R;
 import com.sakhno.newsapp.databinding.FragmentNewsListBinding;
 import com.sakhno.newsapp.db.DatabaseHelper;
 import com.sakhno.newsapp.list.OnRecyclerViewItemClickListener;
+import com.sakhno.newsapp.list.OnRemoveButtonClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class NewsListFragment extends Fragment implements OnRecyclerViewItemClickListener {
+public class NewsListFragment extends Fragment implements OnRecyclerViewItemClickListener, OnRemoveButtonClickListener {
     private FragmentNewsListBinding fragmentNewsListBinding;
     private NewsListAdapter adapter;
     private DatabaseHelper databaseHelper;
@@ -46,7 +49,8 @@ public class NewsListFragment extends Fragment implements OnRecyclerViewItemClic
         initRecyclerView();
         adapter.setNewsList(loadNews());
         adapter.setDatabaseHelper(databaseHelper);
-        adapter.setClickListener(this);
+        adapter.setItemClickListener(this);
+        adapter.setRemoveButtonClickListener(this);
         return fragmentNewsListBinding.getRoot();
     }
 
@@ -70,7 +74,7 @@ public class NewsListFragment extends Fragment implements OnRecyclerViewItemClic
     }
 
     private List<NewsItem> loadNews() {
-        insertTestData();
+        //insertTestData();
         List<NewsItem> news = new ArrayList<>();
 
         SQLiteDatabase database = databaseHelper.getWritableDatabase();
@@ -146,7 +150,7 @@ public class NewsListFragment extends Fragment implements OnRecyclerViewItemClic
 
 
     @Override
-    public void onClick(NewsItem item) {
+    public void onItemClick(NewsItem item) {
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -166,5 +170,49 @@ public class NewsListFragment extends Fragment implements OnRecyclerViewItemClic
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onRemoveBtnClick(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setMessage("Are you sure you want to delete this article?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        deleteArticleById(Integer.parseInt(v.getContentDescription().toString()));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+
+    //TODO: database move to another class
+    private void deleteArticleById(int id) {
+        System.out.println("Delete : " + id);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
+        String selection = "id = ?";
+        String[] selectionArgs = {String.valueOf(id)};
+
+        db.delete("News", selection, selectionArgs);
+
+        List<NewsItem> articles = adapter.getNewsList();
+
+        for (NewsItem item : articles) {
+            if (item.getId() == id) {
+                articles.remove(item);
+                break;
+            }
+        }
+        adapter.setNewsList(articles);
+
+        adapter.notifyDataSetChanged();
     }
 }
