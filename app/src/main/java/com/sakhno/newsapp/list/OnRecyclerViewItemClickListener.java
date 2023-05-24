@@ -1,6 +1,6 @@
-package com.hritsay.newsapp.list;
+package com.sakhno.newsapp.list;
 
-import com.hritsay.newsapp.NewsItem;
+import com.sakhno.newsapp.NewsItem;
 
 public interface OnRecyclerViewItemClickListener {
     void onClick(NewsItem item);

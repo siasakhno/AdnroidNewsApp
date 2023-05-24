@@ -1,4 +1,4 @@
-package com.hritsay.newsapp;
+package com.sakhno.newsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;

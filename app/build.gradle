@@ -5,7 +5,7 @@ android {
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-        applicationId "com.hritsay.newsapp"
+        applicationId "com.sakhno.newsapp"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1

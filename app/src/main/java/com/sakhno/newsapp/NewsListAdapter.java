@@ -1,20 +1,19 @@
-package com.hritsay.newsapp;
+package com.sakhno.newsapp;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.hritsay.newsapp.databinding.NewsItemBinding;
-import com.hritsay.newsapp.db.DatabaseHelper;
-import com.hritsay.newsapp.list.OnRecyclerViewItemClickListener;
+import com.sakhno.newsapp.databinding.NewsItemBinding;
+import com.sakhno.newsapp.db.DatabaseHelper;
+import com.sakhno.newsapp.list.OnRecyclerViewItemClickListener;
 
 
 import java.util.Collections;

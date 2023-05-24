@@ -1,9 +1,8 @@
-package com.hritsay.newsapp.fragments;
+package com.sakhno.newsapp.fragments;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,15 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 
-import com.hritsay.newsapp.NewsItem;
-import com.hritsay.newsapp.NewsListAdapter;
-import com.hritsay.newsapp.R;
-import com.hritsay.newsapp.databinding.FragmentNewsListBinding;
-import com.hritsay.newsapp.db.DatabaseHelper;
-import com.hritsay.newsapp.list.OnRecyclerViewItemClickListener;
+import com.sakhno.newsapp.NewsItem;
+import com.sakhno.newsapp.NewsListAdapter;
+import com.sakhno.newsapp.R;
+import com.sakhno.newsapp.databinding.FragmentNewsListBinding;
+import com.sakhno.newsapp.db.DatabaseHelper;
+import com.sakhno.newsapp.list.OnRecyclerViewItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +70,7 @@ public class NewsListFragment extends Fragment implements OnRecyclerViewItemClic
     }
 
     private List<NewsItem> loadNews() {
-        //insertTestData();
+        insertTestData();
         List<NewsItem> news = new ArrayList<>();
 
         SQLiteDatabase database = databaseHelper.getWritableDatabase();

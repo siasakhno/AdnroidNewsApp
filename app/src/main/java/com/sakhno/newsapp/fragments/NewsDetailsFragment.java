@@ -1,4 +1,4 @@
-package com.hritsay.newsapp.fragments;
+package com.sakhno.newsapp.fragments;
 
 import android.os.Bundle;
 
@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.hritsay.newsapp.NewsItem;
-import com.hritsay.newsapp.R;
+import com.sakhno.newsapp.NewsItem;
+import com.sakhno.newsapp.R;
 
 
 public class NewsDetailsFragment extends Fragment {

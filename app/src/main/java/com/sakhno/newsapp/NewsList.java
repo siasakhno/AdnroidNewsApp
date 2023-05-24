@@ -1,4 +1,4 @@
-package com.hritsay.newsapp;
+package com.sakhno.newsapp;
 
 
 import com.google.gson.annotations.SerializedName;
