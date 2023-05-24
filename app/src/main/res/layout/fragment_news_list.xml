@@ -12,4 +12,16 @@
         android:id="@+id/recycler_view_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/createArticleBtn"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:background="#FF9800"
+        android:elevation="10dp"
+        android:text="CREATE NEW ARTICLE"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
