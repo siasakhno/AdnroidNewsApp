@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/newsCreateFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,11 +30,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
+        android:backgroundTint="#FF9800"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Type title..."
-        android:textColorHint="#e9e9e9"
+        android:inputType="textPersonName"
         android:textColor="#FFFFFF"
+        android:textColorHint="#e9e9e9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/news_title" />
 
@@ -44,11 +45,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
+        android:backgroundTint="#FF9800"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Type source..."
-        android:textColorHint="#e9e9e9"
+        android:inputType="textPersonName"
         android:textColor="#FFFFFF"
+        android:textColorHint="#e9e9e9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
 
@@ -59,11 +61,12 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="15dp"
+        android:backgroundTint="#FF9800"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Type description..."
-        android:textColorHint="#e9e9e9"
+        android:inputType="textPersonName"
         android:textColor="#FFFFFF"
+        android:textColorHint="#e9e9e9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,25 +78,28 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
+        android:backgroundTint="#FF9800"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Paste image URL..."
-        android:textColorHint="#e9e9e9"
+        android:inputType="textPersonName"
         android:textColor="#FFFFFF"
+        android:textColorHint="#e9e9e9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
 
-    <EditText
-        android:id="@+id/editTextCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="220dp"
+        android:layout_height="30dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
+        android:backgroundTint="#FF9800"
+        android:backgroundTintMode="screen"
         android:ems="10"
+        android:hint="ffff"
         android:inputType="textPersonName"
-        android:hint="Choose category..."
-        android:textColorHint="#e9e9e9"
         android:textColor="#FFFFFF"
+        android:textColorHint="#e9e9e9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextSource" />
 
@@ -108,5 +114,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

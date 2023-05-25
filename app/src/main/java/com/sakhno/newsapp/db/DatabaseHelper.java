@@ -94,6 +94,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert("News", null, values);
     }
 
+    public List<String> getAllCategories() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        List<String> categories = new ArrayList<>();
+
+        String[] projection = {"name"};
+        Cursor cursor = db.query("Categories", projection, null, null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String category = cursor.getString(cursor.getColumnIndex("name"));
+                categories.add(category);
+            } while (cursor.moveToNext());
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return categories;
+    }
+
+
     public void insertTestData() {
         SQLiteDatabase database = this.getWritableDatabase();
 
