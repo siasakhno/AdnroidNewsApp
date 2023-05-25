@@ -46,7 +46,7 @@ public class NewsDetailsFragment extends Fragment {
             TextView category = view.findViewById(R.id.category);
             category.setText(item.getCategory());
             TextView source = view.findViewById(R.id.source);
-            source.setText(item.getTitle());
+            source.setText(item.getSource());
             TextView description = view.findViewById(R.id.description);
             description.setText(item.getDescription());
 

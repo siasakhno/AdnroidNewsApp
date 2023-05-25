@@ -80,7 +80,7 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.NewsVi
             @Override
             public void onClick(View view) {
                 if (itemClickListener != null) {
-                    itemClickListener.onItemClick(holder.getNewsItem());
+                    itemClickListener.onItemClick(holder.getNewsItem(), view);
                 }
             }
         });

@@ -1,15 +1,10 @@
 package com.sakhno.newsapp.fragments;
 
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +21,6 @@ import com.sakhno.newsapp.db.DatabaseHelper;
 import com.sakhno.newsapp.list.OnRecyclerViewItemClickListener;
 import com.sakhno.newsapp.list.OnRemoveButtonClickListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -57,8 +51,9 @@ public class NewsListFragment extends Fragment implements OnRecyclerViewItemClic
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Btn clicked!");
-            onCreateButtonClick();            }
+                Navigation.findNavController(v)
+                        .navigate(R.id.action_newsListFragment_to_newsCreateFragment, null);
+            }
         });
 
 
@@ -82,35 +77,17 @@ public class NewsListFragment extends Fragment implements OnRecyclerViewItemClic
         }
     }
 
-    public void onCreateButtonClick() {
-        FragmentManager fragmentManager = getParentFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        CreateNewsItemFragment fragment = new CreateNewsItemFragment(databaseHelper);
-
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
     @Override
-    public void onItemClick(NewsItem item) {
-        FragmentManager fragmentManager = getParentFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        NewsDetailsFragment fragment = new NewsDetailsFragment();
-
+    public void onItemClick(NewsItem item, View view) {
         Bundle args = new Bundle();
         args.putString("title", item.getTitle());
         args.putString("category", item.getCategory());
         args.putString("source", item.getSource());
         args.putString("url", item.getUrl());
         args.putString("description", item.getDescription());
-        fragment.setArguments(args);
 
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        Navigation.findNavController(view).navigate(R.id.action_newsListFragment_to_newsDetailsFragment, args);
+
     }
 
     @Override

@@ -12,10 +12,18 @@
         <action
             android:id="@+id/action_newsListFragment_to_newsDetailsFragment"
             app:destination="@id/newsDetailsFragment" />
+        <action
+            android:id="@+id/action_newsListFragment_to_newsCreateFragment"
+            app:destination="@id/newsCreateFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsDetailsFragment"
         android:name="com.sakhno.newsapp.fragments.NewsDetailsFragment"
         android:label="fragment_news_details"
         tools:layout="@layout/fragment_news_details" />
+    <fragment
+        android:id="@+id/newsCreateFragment"
+        android:name="com.sakhno.newsapp.fragments.CreateNewsItemFragment"
+        android:label="fragment_create"
+        tools:layout="@layout/fragment_news_create" />
 </navigation>

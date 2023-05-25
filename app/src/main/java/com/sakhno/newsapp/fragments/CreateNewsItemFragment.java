@@ -2,6 +2,8 @@ package com.sakhno.newsapp.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -9,34 +11,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.sakhno.newsapp.NewsItem;
 import com.sakhno.newsapp.R;
 import com.sakhno.newsapp.db.DatabaseHelper;
 
 
 public class CreateNewsItemFragment extends Fragment {
-    private NewsItem item;
     private DatabaseHelper databaseHelper;
-    public CreateNewsItemFragment(DatabaseHelper databaseHelper) {
-        this.databaseHelper = databaseHelper;
-        // Required empty public constructor
+
+    public CreateNewsItemFragment() {
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.databaseHelper = new DatabaseHelper(this.getContext());
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_news_create, container, false);
+        return inflater.inflate(R.layout.fragment_news_create, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         Button submitButton = view.findViewById(R.id.buttonSubmit);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -55,12 +55,23 @@ public class CreateNewsItemFragment extends Fragment {
                         Integer.parseInt(category.getText().toString()),
                         source.getText().toString()
                 );
+
+                title.clearFocus();
+                title.clearComposingText();
+
+                title.clearComposingText();
+                description.clearComposingText();
+                category.clearComposingText();
+                imgurl.clearComposingText();
+                source.clearComposingText();
+
+                requireActivity().onBackPressed();
             }
         });
 
 
-        return view;
     }
 
 
-}
+
+    }
