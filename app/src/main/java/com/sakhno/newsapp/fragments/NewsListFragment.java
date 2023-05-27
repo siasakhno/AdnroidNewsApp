@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.sakhno.newsapp.NewsItem;
 import com.sakhno.newsapp.NewsListAdapter;
@@ -57,6 +58,14 @@ public class NewsListFragment extends Fragment implements OnRecyclerViewItemClic
         });
 
 
+        Button searchButton = rootView.findViewById(R.id.buttonSearch);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSearchButtonClick(rootView);
+            }
+        });
+
         return rootView;
     }
 
@@ -75,6 +84,20 @@ public class NewsListFragment extends Fragment implements OnRecyclerViewItemClic
             newsRecyclerView.setAdapter(adapter);
             newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }
+    }
+
+    public void onSearchButtonClick(View rootView) {
+        EditText searchText = rootView.findViewById(R.id.searchEditText);
+        String searchTextStr = searchText.getText().toString();
+
+        if (searchTextStr.equals("")) {
+            adapter.setNewsList(databaseHelper.loadAllNews());
+        } else {
+            List<NewsItem> foundArticles = databaseHelper.getNewsByTitle(searchText.getText().toString());
+            adapter.setNewsList(foundArticles);
+        }
+        adapter.notifyDataSetChanged();
+
     }
 
     @Override

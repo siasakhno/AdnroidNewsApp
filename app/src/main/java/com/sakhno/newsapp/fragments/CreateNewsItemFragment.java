@@ -61,15 +61,20 @@ public class CreateNewsItemFragment extends Fragment {
             public void onClick(View v) {
                 EditText title = view.findViewById(R.id.editTextTitle);
                 EditText description = view.findViewById(R.id.editTextDescription);
-                EditText category = view.findViewById(R.id.spinnerCategory);
+                Spinner category = view.findViewById(R.id.spinnerCategory);
                 EditText imgurl = view.findViewById(R.id.editTextImgUrl);
                 EditText source = view.findViewById(R.id.editTextSource);
+
+                String selectedItemValue = category.getSelectedItem().toString();
+                int categoryId = databaseHelper.getCategoryIdByName(selectedItemValue);
+
+
 
                 databaseHelper.addNews(
                         title.getText().toString(),
                         description.getText().toString(),
                         imgurl.getText().toString(),
-                        Integer.parseInt(category.getText().toString()),
+                        categoryId,
                         source.getText().toString()
                 );
 
@@ -78,7 +83,6 @@ public class CreateNewsItemFragment extends Fragment {
 
                 title.clearComposingText();
                 description.clearComposingText();
-                category.clearComposingText();
                 imgurl.clearComposingText();
                 source.clearComposingText();
 

@@ -115,8 +115,75 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return categories;
     }
 
+    public int getCategoryIdByName(String categoryName) {
+        SQLiteDatabase db = getReadableDatabase();
+        int categoryId = -1;
 
-    public void insertTestData() {
+        String[] projection = {"id"};
+        String selection = "name = ?";
+        String[] selectionArgs = {categoryName};
+
+        Cursor cursor = db.query("Categories", projection, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            categoryId = cursor.getInt(cursor.getColumnIndex("id"));
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return categoryId;
+    }
+
+    public List<NewsItem> getNewsByTitle(String searchTitle) {
+        List<NewsItem> newsList = new ArrayList<>();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query =
+                "SELECT News.id, News.title, News.source, News.image_url, News.description, Categories.name AS category_name " +
+                "FROM News " +
+                "JOIN Categories ON News.category_id = Categories.id " +
+                "WHERE News.title LIKE ?";
+
+        String[] selectionArgs = {"%" + searchTitle + "%"};
+
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                String title = cursor.getString(cursor.getColumnIndex("title"));
+                String description = cursor.getString(cursor.getColumnIndex("description"));
+                String imageUrl = cursor.getString(cursor.getColumnIndex("image_url"));
+                String categoryName = cursor.getString(cursor.getColumnIndex("category_name"));
+                String source = cursor.getString(cursor.getColumnIndex("source"));
+
+                NewsItem newsItem = new NewsItem(id, title, description, imageUrl, categoryName, source);
+                newsList.add(newsItem);
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return newsList;
+    }
+
+/*
+    public void cleanAll() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        db.delete("News", null, null);
+        db.delete("Categories", null, null);
+
+        initCategories();
+    }
+
+
+    public void initCategories() {
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues categoryValues = new ContentValues();
@@ -131,31 +198,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         categoryValues.put("name", "Technology");
         database.insert("Categories", null, categoryValues);
 
-        ContentValues newsValues = new ContentValues();
-        newsValues.put("title", "Political News 1");
-        newsValues.put("description", "Description of political news 1");
-        newsValues.put("image_url", "https://img.pravda.com/images/doc/0/6/0629b28-zelenskiy.jpg");
-        newsValues.put("category_id", 1);
-        newsValues.put("source", "News Source 1");
-        database.insert("News", null, newsValues);
+        categoryValues.clear();
+        categoryValues.put("name", "War");
+        database.insert("Categories", null, categoryValues);
 
-        newsValues.clear();
-        newsValues.put("title", "Political News 2");
-        newsValues.put("description", "Description of political news 2");
-        newsValues.put("image_url", "https://gordonua.com/img/article/16648/77_tn.jpeg?v1684666486");
-        newsValues.put("category_id", 1);
-        newsValues.put("source", "News Source 2");
-        database.insert("News", null, newsValues);
+        categoryValues.clear();
+        categoryValues.put("name", "Economics");
+        database.insert("Categories", null, categoryValues);
 
-        newsValues.clear();
-        newsValues.put("title", "Political News 3");
-        newsValues.put("description", "Description of political news 3");
-        newsValues.put("image_url", "https://gdb.rferl.org/0ffc0000-0aff-0242-fcf4-08da4d353037_cx0_cy9_cw0_w1023_r1_s.jpg");
-        newsValues.put("category_id", 1);
-        newsValues.put("source", "News Source 3");
-        database.insert("News", null, newsValues);
+        categoryValues.clear();
+        categoryValues.put("name", "History");
+        database.insert("Categories", null, categoryValues);
 
     }
+*/
 
 
 
