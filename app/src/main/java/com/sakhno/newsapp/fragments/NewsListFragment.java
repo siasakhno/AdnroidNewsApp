@@ -72,7 +72,6 @@ public class NewsListFragment extends Fragment implements OnRecyclerViewItemClic
     @Override
     public void onResume() {
         super.onResume();
-
         adapter.setNewsList(databaseHelper.loadAllNews());
         adapter.notifyDataSetChanged();
     }

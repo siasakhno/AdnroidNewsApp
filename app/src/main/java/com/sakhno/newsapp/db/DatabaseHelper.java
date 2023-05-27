@@ -172,47 +172,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return newsList;
     }
 
-/*
-    public void cleanAll() {
-        SQLiteDatabase db = getReadableDatabase();
-
-        db.delete("News", null, null);
-        db.delete("Categories", null, null);
-
-        initCategories();
-    }
-
-
-    public void initCategories() {
-        SQLiteDatabase database = this.getWritableDatabase();
-
-        ContentValues categoryValues = new ContentValues();
-        categoryValues.put("name", "Politics");
-        database.insert("Categories", null, categoryValues);
-
-        categoryValues.clear();
-        categoryValues.put("name", "Sports");
-        database.insert("Categories", null, categoryValues);
-
-        categoryValues.clear();
-        categoryValues.put("name", "Technology");
-        database.insert("Categories", null, categoryValues);
-
-        categoryValues.clear();
-        categoryValues.put("name", "War");
-        database.insert("Categories", null, categoryValues);
-
-        categoryValues.clear();
-        categoryValues.put("name", "Economics");
-        database.insert("Categories", null, categoryValues);
-
-        categoryValues.clear();
-        categoryValues.put("name", "History");
-        database.insert("Categories", null, categoryValues);
-
-    }
-*/
-
-
-
 }
