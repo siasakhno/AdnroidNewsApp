@@ -160,7 +160,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String categoryName = cursor.getString(cursor.getColumnIndex("category_name"));
                 String source = cursor.getString(cursor.getColumnIndex("source"));
 
-                NewsItem newsItem = new NewsItem(id, title, description, imageUrl, categoryName, source);
+                NewsItem newsItem = new NewsItem(id, title, categoryName, source, imageUrl, description);
                 newsList.add(newsItem);
             } while (cursor.moveToNext());
         }
