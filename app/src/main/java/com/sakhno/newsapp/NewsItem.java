@@ -1,25 +1,16 @@
 package com.sakhno.newsapp;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.time.LocalDateTime;
 
 public class NewsItem {
 
-    @SerializedName("id")
     private int id;
-    @SerializedName("title")
     private String title;
-    @SerializedName("category")
     private String category;
-    @SerializedName("source")
     private String source;
-    @SerializedName("urlToImage")
     private String url;
-    @SerializedName("description")
     private String description;
 
-    @SerializedName("dateTime")
     private LocalDateTime dateTime;
 
     public NewsItem() {

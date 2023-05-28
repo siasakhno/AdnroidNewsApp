@@ -9,9 +9,6 @@
     android:background="#000000"
     tools:context=".fragments.NewsDetailsFragment">
 
-
-    <!-- TODO: Update blank fragment layout -->
-
     <ImageView
         android:id="@+id/image"
         android:layout_width="414dp"
